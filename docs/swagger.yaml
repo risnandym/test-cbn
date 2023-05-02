@@ -1,0 +1,158 @@
+definitions:
+  controllers.RequestProduct:
+    properties:
+      brand:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      discountPercentage:
+        type: number
+      id:
+        type: integer
+      images:
+        items:
+          type: string
+        type: array
+      price:
+        type: integer
+      rating:
+        type: number
+      stock:
+        type: integer
+      thumbnail:
+        type: string
+      title:
+        type: string
+    type: object
+  models.Product:
+    properties:
+      brand:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      discountPercentage:
+        type: number
+      id:
+        type: integer
+      price:
+        type: integer
+      rating:
+        type: number
+      stock:
+        type: integer
+      title:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+paths:
+  /product:
+    post:
+      description: Creating a new Product.
+      parameters:
+      - description: the body to create a new Product
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.RequestProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Product'
+      summary: Create New Product.
+      tags:
+      - Product
+  /product/{id}:
+    delete:
+      description: Delete a Product by id.
+      parameters:
+      - description: Product id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+      summary: Delete one Product. (Admin only)
+      tags:
+      - Product
+    get:
+      description: Get an Product by Id.
+      parameters:
+      - description: Product id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Product'
+      summary: Get Product by Id.
+      tags:
+      - Product
+    patch:
+      description: Update Product by id.
+      parameters:
+      - description: Product id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: the body to update product
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.RequestProduct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Product'
+      summary: Update Product.
+      tags:
+      - Product
+  /products:
+    get:
+      description: Get a list of Product.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/controllers.RequestProduct'
+            type: array
+      summary: Get all Product.
+      tags:
+      - Product
+swagger: "2.0"
